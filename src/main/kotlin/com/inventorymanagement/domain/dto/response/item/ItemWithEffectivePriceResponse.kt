@@ -18,8 +18,6 @@ data class ItemWithEffectivePriceResponse(
     val priceId: Int? = null,
     @Serializable(with = UUIDSerializer::class)
     val userId: UUID? = null,
-    @Serializable(with = BigDecimalSerializer::class)
-    val specialPrice: BigDecimal? = null,
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime? = null
 )

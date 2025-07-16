@@ -103,7 +103,6 @@ object UserMapper {
 
     fun UpdateStatement.toUserTable(user: User) {
         this[UserTable.userName] = user.userName
-        this[UserTable.password] = user.password
         this[UserTable.phoneNumber] = user.phoneNumber
         this[UserTable.email] = user.email
         this[UserTable.dob] = user.dob

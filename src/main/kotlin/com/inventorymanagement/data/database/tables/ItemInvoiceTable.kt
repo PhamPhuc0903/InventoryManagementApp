@@ -8,5 +8,6 @@ object ItemInvoiceTable: Table("items_invoices") {
     val itemId = reference("item_id", ItemTable.itemId)
     val quantity = integer("quantity")
     val sellingPrice = decimal("selling_price",18,2).default(BigDecimal.ZERO)
+    val total = decimal("total",18,2).default(BigDecimal.ZERO)
     override val primaryKey = PrimaryKey(invoiceId,itemId)
 }

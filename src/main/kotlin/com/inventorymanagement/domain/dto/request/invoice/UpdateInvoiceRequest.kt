@@ -6,4 +6,5 @@ data class UpdateInvoiceRequest(
     val totalAmount: BigDecimal? = null,
     val paidAmount: BigDecimal? = null,
     val debtAmount: BigDecimal? = null,
+    val itemInvoices: List<UpdateItemInvoiceRequest>? = null
 )

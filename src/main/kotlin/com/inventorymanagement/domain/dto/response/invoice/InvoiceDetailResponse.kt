@@ -17,6 +17,6 @@ data class InvoiceDetailResponse(
     val createdAt: LocalDateTime,
     @Serializable(with = BigDecimalSerializer::class)
     val totalAmount: BigDecimal,
-    val items: List<InvoiceItemResponse>
+    val items: List<ItemInvoiceResponse>
 )
 

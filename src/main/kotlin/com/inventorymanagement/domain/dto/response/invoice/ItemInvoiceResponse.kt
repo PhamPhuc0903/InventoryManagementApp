@@ -5,9 +5,11 @@ import java.math.BigDecimal
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class InvoiceItemResponse(
+data class ItemInvoiceResponse(
     val itemId: Int,
     val quantity: Int,
     @Serializable(with = BigDecimalSerializer::class)
-    val sellingPrice: BigDecimal
+    val sellingPrice: BigDecimal,
+    @Serializable(with = BigDecimalSerializer::class)
+    val total: BigDecimal
 )

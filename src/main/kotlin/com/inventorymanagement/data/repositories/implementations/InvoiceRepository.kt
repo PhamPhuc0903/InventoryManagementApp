@@ -4,14 +4,12 @@ import com.example.com.inventorymanagement.data.database.tables.InvoiceTable
 import com.example.com.inventorymanagement.data.models.Invoice
 import com.example.com.inventorymanagement.data.repositories.interfaces.IInvoiceRepository
 import com.example.com.inventorymanagement.domain.dto.request.invoice.InvoiceFilterRequest
+import com.example.com.inventorymanagement.domain.mappers.InvoiceMapper.toFilterConditions
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import java.util.UUID
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.greaterEq
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.lessEq
-import java.time.LocalDateTime
 import kotlin.Int
 
 class InvoiceRepository: IInvoiceRepository {
@@ -45,18 +43,7 @@ class InvoiceRepository: IInvoiceRepository {
     }
 
     override suspend fun filterInvoice(filter: InvoiceFilterRequest): List<Invoice> = newSuspendedTransaction(Dispatchers.IO) {
-        val conditions = buildList<Op<Boolean>> {
-            filter.userId?.let {
-                add(InvoiceTable.userId eq it)
-            }
-
-            filter.date?.let { date ->
-                val startOfDay = date.atStartOfDay()
-                val endOfDay = date.atTime(23, 59, 59, 999_999_999)
-                add(InvoiceTable.createdAt greaterEq startOfDay)
-                add(InvoiceTable.createdAt lessEq endOfDay)
-            }
-        }
+        val conditions = filter.toFilterConditions()
 
         val query = if (conditions.isNotEmpty()) {
             InvoiceTable.selectAll().where { conditions.reduce { acc, op -> acc and op } }

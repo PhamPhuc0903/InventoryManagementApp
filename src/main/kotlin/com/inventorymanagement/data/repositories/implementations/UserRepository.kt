@@ -34,7 +34,7 @@ class UserRepository : IUserRepository {
     override suspend fun create(user: User): User? = newSuspendedTransaction(Dispatchers.IO) {
         UserTable.insert {it.toUserTable(user)}
         // Trả về User vừa insert
-        user.copy(userId = user.userId)
+        user
     }
 
     override suspend fun filterUser(filter: UserFilterRequest): List<User> = newSuspendedTransaction(Dispatchers.IO) {

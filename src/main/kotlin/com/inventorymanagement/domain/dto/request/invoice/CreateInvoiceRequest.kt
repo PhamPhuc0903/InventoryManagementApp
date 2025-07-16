@@ -8,4 +8,5 @@ data class CreateInvoiceRequest(
     val totalAmount: BigDecimal,
     val paidAmount: BigDecimal,
     val debtAmount: BigDecimal,
+    val itemInvoices: List<CreateItemInvoiceRequest>
 )

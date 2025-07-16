@@ -6,5 +6,6 @@ data class ItemInvoice(
     val invoiceId: Int,
     val itemId: Int,
     val quantity: Int,
-    val sellingPrice: BigDecimal
+    val sellingPrice: BigDecimal,
+    val total: BigDecimal
 )
